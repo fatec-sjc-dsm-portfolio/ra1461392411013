@@ -1,0 +1,165 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Picture } from "astro:assets";
+import Badge from "./Badge.astro";
+import StackList from "./StackList.astro";
+import Icon from "./Icon.astro";
+import { dictionaries } from "../i18n/dictionaries";
+import type { Locale } from "../i18n/locales";
+import { formatPeriod, formatSemester } from "../lib/period";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+  locale: Locale;
+}
+
+const { project, locale } = Astro.props;
+const data = project.data;
+const dict = dictionaries[locale];
+
+if (!data.api || !data.takeaway || !data.image) {
+  throw new Error(`API project "${project.id}" is missing api, takeaway or image`);
+}
+
+const semesterLabel = formatSemester(data.api.semester, data.period.start, locale, dict.card.semester);
+const periodLabel = formatPeriod(data.period.start, data.period.end, locale);
+const isOngoing = data.period.end === null;
+const isPrivate = data.links.codeVisibility === "private";
+const codeAria = dict.card.codeAria.replace("{projeto}", data.title);
+// O id da collection vem como "api/shifu"; a barra não vale em seletor CSS.
+const cardId = `project-${project.id.replace(/\//g, "-")}`;
+---
+
+<article class="api-card" id={cardId}>
+  <div class="api-card__media">
+    <Picture
+      src={data.image.src}
+      alt={data.image.alt[locale]}
+      widths={[480, 960, 1440]}
+      sizes="(min-width: 960px) 480px, 100vw"
+      formats={["avif", "webp"]}
+      loading="lazy"
+      class="api-card__image"
+    />
+  </div>
+  <div class="api-card__body">
+    <div class="api-card__badges">
+      <Badge>{semesterLabel}</Badge>
+      <Badge>{dict.card.team.replace("{n}", String(data.api.teamSize))}</Badge>
+      {isOngoing && <Badge variant="accent">{dict.card.inProgress}</Badge>}
+    </div>
+    <h3>{data.title}<span class="name-dot" aria-hidden="true">.</span></h3>
+    <p>{data.summary[locale]}</p>
+    <dl class="api-card__meta">
+      <div>
+        <dt>{dict.card.client}</dt>
+        <dd>{data.api.client[locale]}</dd>
+      </div>
+      <div>
+        <dt>{dict.card.role}</dt>
+        <dd>{data.api.role[locale]}</dd>
+      </div>
+      <div>
+        <dt>{dict.card.period}</dt>
+        <dd>
+          <time datetime={data.period.start}>{periodLabel}</time>
+        </dd>
+      </div>
+    </dl>
+    <StackList stack={data.stack} />
+    <div>
+      <h4>{dict.card.contribution}</h4>
+      <ul>
+        {data.contribution[locale].map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+    <p class="api-card__takeaway">
+      <strong>{dict.card.takeaway}:</strong> {data.takeaway[locale]}
+    </p>
+    {
+      isPrivate ? (
+        <p class="text-small">{dict.card.private}</p>
+      ) : (
+        <a href={data.links.code} target="_blank" rel="noopener noreferrer" aria-label={codeAria} class="api-card__code">
+          {dict.card.code}
+          <Icon name="arrow-up-right" size={16} />
+          <span class="visually-hidden">{dict.link.newTab}</span>
+        </a>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .api-card {
+    display: grid;
+    /* Item de grid tem min-width:auto; sem isto um filho largo
+       (linha de selos, chip comprido) estica o cartão além da coluna. */
+    min-width: 0;
+    gap: var(--space-6);
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-m);
+  }
+
+  .api-card:focus-within {
+    outline: var(--focus-width) solid var(--color-accent);
+    outline-offset: var(--focus-offset);
+  }
+
+  .api-card__image {
+    width: 100%;
+    /* Sem height:auto o atributo height="900" do <img> vence e o
+       aspect-ratio é ignorado, deixando a moldura esticada. */
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: contain;
+    background: var(--color-surface);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-m);
+  }
+
+  .api-card__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .api-card__meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+    margin: var(--space-4) 0;
+  }
+
+  .api-card__meta dt {
+    font-size: var(--text-small);
+    color: var(--color-muted);
+  }
+
+  .api-card__meta dd {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .api-card__takeaway {
+    color: var(--color-muted);
+  }
+
+  .api-card__code {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  @media (min-width: 960px) {
+    .api-card {
+      grid-template-columns: 5fr 7fr;
+      align-items: start;
+    }
+  }
+</style>

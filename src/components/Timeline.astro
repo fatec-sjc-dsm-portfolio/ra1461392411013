@@ -1,0 +1,123 @@
+---
+import type { CollectionEntry } from "astro:content";
+import StackList from "./StackList.astro";
+import Badge from "./Badge.astro";
+import { dictionaries } from "../i18n/dictionaries";
+import type { Locale } from "../i18n/locales";
+import { formatPeriod } from "../lib/period";
+
+interface Props {
+  entries: CollectionEntry<"timeline">[];
+  locale: Locale;
+}
+
+const { entries, locale } = Astro.props;
+const dict = dictionaries[locale];
+---
+
+<ol class="timeline">
+  {
+    entries.map((entry) => {
+      const data = entry.data;
+      const kindLabel =
+        data.kind === "academic" ? dict.timeline.academic : dict.timeline.professional;
+
+      return (
+        <li class="timeline__item">
+          <div class="timeline__card">
+            <div class="timeline__meta">
+              <time class="timeline__period text-mono" datetime={data.start}>
+                {formatPeriod(data.start, data.end, locale)}
+              </time>
+              <Badge variant={data.kind === "academic" ? "neutral" : "accent"}>{kindLabel}</Badge>
+            </div>
+            <h3>{data.title}<span class="name-dot" aria-hidden="true">.</span></h3>
+            <p class="timeline__subtitle">{data.subtitle[locale]}</p>
+            <ul class="timeline__highlights">
+              {data.highlights[locale].map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+            {data.stack && <StackList stack={data.stack} />}
+          </div>
+        </li>
+      );
+    })
+  }
+</ol>
+
+<style>
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 var(--space-8);
+    position: relative;
+  }
+
+  /* Linha vertical contínua atrás das bolinhas. */
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: var(--space-3);
+    bottom: var(--space-3);
+    width: 2px;
+    background: var(--color-border-strong);
+  }
+
+  .timeline__item {
+    position: relative;
+    padding-bottom: var(--space-8);
+  }
+
+  .timeline__item:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline__item::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--space-8));
+    top: var(--space-4);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    /* O anel na cor do fundo corta a linha atrás da bolinha. */
+    box-shadow: 0 0 0 4px var(--color-band);
+  }
+
+  .timeline__card {
+    background: var(--color-surface);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-m);
+    padding: var(--space-6);
+    display: grid;
+    gap: var(--space-3);
+    min-width: 0;
+  }
+
+  .timeline__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .timeline__period {
+    color: var(--color-muted);
+    text-transform: uppercase;
+  }
+
+  .timeline__subtitle {
+    color: var(--color-accent);
+    margin: 0;
+  }
+
+  .timeline__highlights {
+    margin: 0;
+    padding-left: var(--space-4);
+    display: grid;
+    gap: var(--space-2);
+  }
+</style>

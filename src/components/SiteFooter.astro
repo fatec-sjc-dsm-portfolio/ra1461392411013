@@ -1,0 +1,32 @@
+---
+import { dictionaries } from "../i18n/dictionaries";
+import type { Locale } from "../i18n/locales";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = dictionaries[locale];
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <p class="text-small">{dict.footer.privacy}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: var(--border-width) solid var(--color-border);
+    padding-block: var(--space-8);
+  }
+
+  .site-footer__inner {
+    color: var(--color-muted);
+  }
+
+  .site-footer__inner p {
+    margin: 0;
+  }
+</style>

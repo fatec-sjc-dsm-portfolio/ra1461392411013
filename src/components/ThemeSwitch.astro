@@ -1,0 +1,103 @@
+---
+import Icon from "./Icon.astro";
+import { dictionaries } from "../i18n/dictionaries";
+import type { Locale } from "../i18n/locales";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = dictionaries[locale];
+---
+
+{/* Começa `hidden`: sem JavaScript o botão não faria nada, e um controle
+    morto é pior que controle nenhum. O script revela e cuida do estado.
+    `role="switch"` + `aria-checked` já dizem "ligado/desligado" ao leitor
+    de tela, então o rótulo é só o nome do que o switch controla. */}
+<button
+  type="button"
+  class="theme-switch"
+  role="switch"
+  aria-checked="false"
+  aria-label={dict.theme.toggle}
+  data-theme-toggle
+  hidden
+>
+  <span class="theme-switch__track" aria-hidden="true">
+    <span class="theme-switch__icon theme-switch__icon--sun"><Icon name="sun" size={14} /></span>
+    <span class="theme-switch__icon theme-switch__icon--moon"><Icon name="moon" size={14} /></span>
+    <span class="theme-switch__knob"></span>
+  </span>
+</button>
+
+<style>
+  /* O `display` de .theme-switch vence o `display:none` que o atributo
+     hidden herda do navegador, então o estado escondido precisa ser
+     declarado aqui. Sem isto, o switch aparece morto quando não há JS. */
+  .theme-switch[hidden] {
+    display: none;
+  }
+
+  .theme-switch {
+    display: inline-flex;
+    align-items: center;
+    /* O alvo de toque vai além da pista, para cumprir os 24 px da RNF-05. */
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 var(--space-1);
+    border: 0;
+    background: none;
+    cursor: pointer;
+    color: var(--color-muted);
+  }
+
+  .theme-switch__track {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 52px;
+    height: 28px;
+    padding: 0 var(--space-1);
+    border: var(--border-width) solid var(--color-border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface);
+  }
+
+  .theme-switch:hover .theme-switch__track {
+    border-color: var(--color-accent);
+  }
+
+  .theme-switch__icon {
+    display: inline-flex;
+    z-index: 1;
+  }
+
+  .theme-switch__knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--color-accent);
+  }
+
+  .theme-switch[aria-checked="true"] .theme-switch__knob {
+    /* 52 de pista − 22 do botão − 2+2 de folga. */
+    transform: translateX(24px);
+  }
+
+  /* O ícone sob o botão fica na cor do contraste; o outro, apagado. */
+  .theme-switch[aria-checked="false"] .theme-switch__icon--sun,
+  .theme-switch[aria-checked="true"] .theme-switch__icon--moon {
+    color: var(--color-on-accent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-switch__knob {
+      transition: transform var(--transition-fast);
+    }
+  }
+</style>

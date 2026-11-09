@@ -1,0 +1,29 @@
+kind: api
+title: Fixture Extra
+period: { start: "2023-02", end: "2023-06" }
+api:
+  semester: 1
+  client: { pt: Fixture, en: Fixture }
+  teamSize: 3
+  role:
+    pt: Desenvolvedor
+    en: Developer
+summary:
+  pt: Projeto de fixture usado pelo check:one-file.
+  en: Fixture project used by check:one-file.
+contribution:
+  pt:
+    - Item de fixture.
+  en:
+    - Fixture item.
+takeaway:
+  pt: Nenhum.
+  en: None.
+stack: [TypeScript]
+links:
+  code: https://github.com/kaufon/fixture-extra
+image:
+  src: ../../../assets/projects/chronos.png
+  alt:
+    pt: Imagem de fixture
+    en: Fixture image

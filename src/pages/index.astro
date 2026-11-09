@@ -1,0 +1,73 @@
+---
+import "../styles/global.css";
+import Seo from "../components/Seo.astro";
+import { withBase } from "../lib/paths";
+import { CSP_CONTENT } from "../lib/csp";
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta http-equiv="Content-Security-Policy" content={CSP_CONTENT} />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline src={withBase("scripts/lang-redirect.js")} data-base={import.meta.env.BASE_URL}
+    ></script>
+    <Seo
+      locale="x-default"
+      title="Kauan Fonseca · Portfólio / Portfolio"
+      description="Escolha o idioma · Choose your language"
+      path=""
+    />
+  </head>
+  <body>
+    <main id="main" class="gate">
+      <h1>Kauan Fonseca · Portfólio / Portfolio</h1>
+      <p>Escolha o idioma · Choose your language</p>
+      <ul class="gate__links">
+        <li>
+          <a href={withBase("pt/")} hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a>
+        </li>
+        <li>
+          <a href={withBase("en/")} hreflang="en-US" lang="en-US">English</a>
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>
+
+<style>
+  .gate {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+    text-align: center;
+    padding: var(--space-6);
+  }
+
+  .gate__links {
+    display: flex;
+    gap: var(--space-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .gate__links a {
+    display: inline-flex;
+    padding: var(--space-3) var(--space-6);
+    border: var(--border-width) solid var(--color-border-strong);
+    border-radius: var(--radius-s);
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .gate__links a:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+</style>

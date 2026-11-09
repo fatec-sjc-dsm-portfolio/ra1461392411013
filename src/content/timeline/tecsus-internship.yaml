@@ -1,0 +1,15 @@
+kind: professional
+title: Tecsus
+subtitle:
+  pt: Estagiário de Desenvolvimento de Software
+  en: Software Development Intern
+start: "2025-05"
+end: "2025-08"
+highlights:
+  pt:
+    - Comecei no backend, em Python.
+    - Promovido a desenvolvedor júnior em ago/2025.
+  en:
+    - Started in back end, in Python.
+    - Promoted to junior developer in Aug 2025.
+stack: [Python]

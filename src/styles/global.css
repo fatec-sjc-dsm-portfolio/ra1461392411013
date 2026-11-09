@@ -1,0 +1,155 @@
+@import "./fonts.css";
+@import "./tokens.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* O cabeçalho é sticky; sem isto a âncora clicada para embaixo dele. */
+  scroll-padding-top: var(--header-offset);
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  background-image: linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 72px 72px;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--text-h1);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: var(--text-h2);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+h3 {
+  font-size: var(--text-h3);
+}
+
+/* Última palavra do título, em serifa itálica no acento (A.9). */
+.title-accent {
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+/* Ponto final no acento depois de nome próprio (A.9). */
+.name-dot {
+  color: var(--color-accent);
+}
+
+p {
+  margin: 0;
+  max-width: 68ch;
+}
+
+small,
+.text-small {
+  font-size: var(--text-small);
+}
+
+.text-mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.04em;
+}
+
+.text-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+a {
+  color: var(--color-accent);
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: var(--focus-width) solid var(--color-accent);
+  outline-offset: var(--focus-offset);
+}
+
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+}
+
+.section {
+  padding-block: var(--space-section);
+}
+
+.section--band {
+  background: var(--color-band);
+  border-block: var(--border-width) solid var(--color-border);
+}
+
+/* Pill com borda fina, usada em stack, metadados e selos (A.9). */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-muted);
+  background: transparent;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a,
+  button,
+  label {
+    transition: color var(--transition-fast), background-color var(--transition-fast),
+      border-color var(--transition-fast);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}

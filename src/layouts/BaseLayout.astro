@@ -1,0 +1,45 @@
+---
+import "../styles/global.css";
+import Seo from "../components/Seo.astro";
+import type { Locale } from "../i18n/locales";
+import { localeMeta } from "../i18n/locales";
+import { withBase } from "../lib/paths";
+import { CSP_CONTENT } from "../lib/csp";
+import bodyFontUrl from "../assets/fonts/public-sans-latin-wght-normal.woff2?url";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  path: string;
+  noindex?: boolean;
+  ogImagePath?: string;
+}
+
+const { locale, title, description, path, noindex, ogImagePath } = Astro.props;
+const htmlLang = localeMeta[locale].htmlLang;
+---
+
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta http-equiv="Content-Security-Policy" content={CSP_CONTENT} />
+    <script is:inline src={withBase("scripts/theme.js")}></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Seo
+      locale={locale}
+      title={title}
+      description={description}
+      path={path}
+      noindex={noindex}
+      ogImagePath={ogImagePath}
+    />
+    <link rel="preload" href={bodyFontUrl} as="font" type="font/woff2" crossorigin="anonymous" />
+    <script is:inline src={withBase("scripts/lang-remember.js")} defer></script>
+    <script is:inline src={withBase("scripts/theme-switch.js")} defer></script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

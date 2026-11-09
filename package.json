@@ -1,0 +1,42 @@
+{
+  "name": "kaufon.github.io",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && tsx scripts/minify-scripts.ts",
+    "preview": "astro preview --host 127.0.0.1 --port 4321",
+    "check": "astro check",
+    "test:unit": "vitest run",
+    "check:static": "tsx scripts/check-static.ts",
+    "check:one-file": "tsx scripts/check-one-file.ts",
+    "check:delivery": "tsx scripts/check-delivery.ts",
+    "test:e2e": "playwright test",
+    "test:lh": "cross-env-shell \"SITE=http://127.0.0.1:4321 npm run build\" && lhci autorun",
+    "verify:m1": "npm run check && npm run test:unit && cross-env-shell \"BASE=/kf-base-test/ npm run build && BASE=/kf-base-test/ npm run check:static\" && npm run build && npm run check:static",
+    "verify": "npm run verify:m1 && npm run check:one-file && npm run test:e2e && npm run test:lh",
+    "fonts:vendor": "tsx scripts/vendor-fonts.ts",
+    "og:build": "tsx scripts/build-og.ts"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@axe-core/playwright": "4.14.0",
+    "@fontsource-variable/jetbrains-mono": "5.3.0",
+    "@fontsource-variable/newsreader": "5.3.0",
+    "@fontsource-variable/public-sans": "5.3.0",
+    "@lhci/cli": "0.15.1",
+    "@playwright/test": "1.64.1",
+    "astro": "6.4.8",
+    "cross-env": "10.1.0",
+    "esbuild": "0.27.7",
+    "linkedom": "0.18.14",
+    "lucide-static": "1.62.0",
+    "sharp": "0.35.5",
+    "simple-icons": "16.36.0",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "vitest": "5.0.5"
+  }
+}

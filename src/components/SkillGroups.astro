@@ -1,0 +1,101 @@
+---
+import type { CollectionEntry } from "astro:content";
+import StackPodium from "./StackPodium.astro";
+import StackGrid from "./StackGrid.astro";
+import { dictionaries } from "../i18n/dictionaries";
+import type { Locale } from "../i18n/locales";
+
+interface Props {
+  profile: CollectionEntry<"profile">;
+  locale: Locale;
+}
+
+const { profile, locale } = Astro.props;
+const data = profile.data;
+const dict = dictionaries[locale];
+---
+
+<div class="skill-groups">
+  <StackPodium featured={data.featured} locale={locale} label={dict.skills.featured} />
+
+  <StackGrid stack={data.stack} locale={locale} />
+
+  <div class="skill-groups__skills">
+    {
+      data.skills.map((group) => (
+        <div class="skill-group">
+          <h3 class="skill-group__title text-eyebrow">{group.group[locale]}</h3>
+          <ul class="skill-group__items">
+            {group.items[locale].map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="skill-groups__extra">
+    <div>
+      <h3>{dict.skills.languages}</h3>
+      <ul>
+        {
+          data.languages.map((language) => (
+            <li>
+              {language.name[locale]}: {language.level[locale]}
+              {language.certificateUrl && (
+                <>
+                  {" "}
+                  <a href={language.certificateUrl} target="_blank" rel="noopener noreferrer">
+                    {dict.skills.certificate}
+                  </a>
+                </>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</div>
+
+<style>
+  .skill-groups {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .skill-groups__skills {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .skill-group__title {
+    color: var(--color-muted);
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .skill-group__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    list-style: none;
+    margin: var(--space-3) 0 0;
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-mono);
+  }
+
+  .skill-group__items li {
+    padding: var(--space-1) var(--space-3);
+    border: var(--border-width) solid var(--color-border-strong);
+    border-radius: var(--radius-pill);
+    color: var(--color-muted);
+  }
+
+  .skill-groups__extra {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+</style>

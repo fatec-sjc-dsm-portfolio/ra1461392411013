@@ -1,0 +1,39 @@
+---
+import { localeMeta, otherLocale, type Locale } from "../i18n/locales";
+import { dictionaries } from "../i18n/dictionaries";
+import { withBase } from "../lib/paths";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const target = otherLocale(locale);
+const dict = dictionaries[locale];
+---
+
+{/* Atalho de um clique para o outro idioma, ao lado da engrenagem. O menu
+    da engrenagem continua tendo os dois idiomas; este é só o caminho curto,
+    para o bilinguismo ficar visível sem precisar abrir nada (RF-13). */}
+<a
+  href={withBase(`${target}/`)}
+  hreflang={localeMeta[target].bcp47}
+  lang={localeMeta[target].bcp47}
+  class="lang-shortcut"
+  data-lang-switch={target}
+  data-lang-shortcut
+>
+  <span class="visually-hidden">{dict.lang.switchPrefix} </span>{dict.lang.other}
+</a>
+
+<style>
+  .lang-shortcut {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: var(--space-2);
+    font-size: var(--text-small);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+</style>

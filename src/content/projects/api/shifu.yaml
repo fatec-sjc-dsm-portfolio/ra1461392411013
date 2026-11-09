@@ -1,0 +1,39 @@
+kind: api
+title: Shifu
+period: { start: "2026-09", end: null }
+api:
+  semester: 6
+  client: { pt: GSW, en: GSW }
+  teamSize: 5
+  role:
+    pt: Desenvolvedor (Scrum Team)
+    en: Developer (Scrum Team)
+summary:
+  pt: >-
+    Plataforma de aprendizagem com IA que identifica o nível do aluno,
+    monta uma trilha personalizada, corrige a prática e mede a evolução.
+    O MVP valida o caso de Lógica de Programação.
+  en: >-
+    AI-powered learning platform that finds the learner's starting level,
+    builds a personalized path, grades practice and tracks progress. The
+    MVP validates the Programming Logic case.
+contribution:
+  pt:
+    - Rate limiting por IP com Redis (token bucket atômico) na API em FastAPI.
+    - Home de Objetivos, fluxo de adicionar Habilidade e remoção de Objetivo, no back-end e no front-end.
+    - "Módulo de gamificação: conquistas, calendário de prática, histórico de XP, visão geral de nível e XP por atividade."
+  en:
+    - Per-IP rate limiting with Redis (atomic token bucket) in the FastAPI API.
+    - Goals home, add-a-Skill flow and Goal removal, on the back end and the front end.
+    - "Gamification module: achievements, practice calendar, XP history, level overview and XP per activity."
+takeaway:
+  pt: Desenvolvimento guiado por spec com agentes de IA, apoiado por code review e metas de cobertura no CI.
+  en: Spec-driven development with AI agents, backed by code review and CI coverage gates.
+stack: [TypeScript, React, TanStack Start, Python, FastAPI, PostgreSQL, Redis, Inngest]
+links:
+  code: https://github.com/CtrI-Alt-Del/shifu
+image:
+  src: ../../../assets/projects/shifu.png
+  alt:
+    pt: "Slide do Shifu com o fluxo: objetivo, diagnóstico e próximo passo"
+    en: "Shifu slide showing the flow: goal, diagnosis and next step"

@@ -1,0 +1,85 @@
+---
+import "../styles/tech-icons.css";
+import type { CollectionEntry } from "astro:content";
+import type { Locale } from "../i18n/locales";
+
+interface Props {
+  stack: CollectionEntry<"profile">["data"]["stack"];
+  locale: Locale;
+}
+
+const { stack, locale } = Astro.props;
+---
+
+<div class="stack-grid">
+  {
+    stack.map((category) => (
+      <div class="stack-column">
+        <h3 class="stack-column__title text-eyebrow">{category.category[locale]}</h3>
+        <ul class="stack-column__items">
+          {category.items.map((item) => (
+            <li class="stack-item">
+              {item.icon ? (
+                <span class={`tech-icon tech-icon--${item.icon}`} aria-hidden="true" />
+              ) : (
+                <span class="stack-item__bullet" aria-hidden="true" />
+              )}
+              {item.name[locale]}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .stack-grid {
+    display: grid;
+    gap: var(--space-8) var(--space-6);
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  }
+
+  .stack-column__title {
+    color: var(--color-muted);
+    font-weight: 400;
+    margin: 0 0 var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: var(--border-width) solid var(--color-border);
+  }
+
+  .stack-column__items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .stack-item {
+    display: flex;
+    /* flex-start para o ícone ficar na primeira linha quando o nome quebra. */
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: var(--text-small);
+    color: var(--color-text);
+    min-width: 0;
+  }
+
+  /* Tecnologia sem ícone disponível continua alinhada com as demais. */
+  .stack-item__bullet {
+    width: 1.15em;
+    height: 1.15em;
+    flex: none;
+    position: relative;
+    margin-top: 0.1em;
+  }
+
+  .stack-item__bullet::after {
+    content: "";
+    position: absolute;
+    inset: 35%;
+    border-radius: 50%;
+    background: var(--color-border-strong);
+  }
+</style>

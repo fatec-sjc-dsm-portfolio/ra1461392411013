@@ -1,0 +1,142 @@
+name: Kauan Fonseca
+headline:
+  pt: Desenvolvedor Full-Stack · Júnior
+  en: Full-Stack Developer · Junior
+summary:
+  pt: >-
+    Comecei a programar na faculdade em 2024 e, no ano seguinte, já estava
+    trabalhando na área. Puxo mais para o backend — domínio, dados e
+    entrega —, mas vou até a tela quando precisa.
+  en: >-
+    I started programming at university in 2024 and was working in the
+    field the year after. I lean back end — domain, data and delivery —
+    but I go all the way to the screen when needed.
+location:
+  pt: Brasil (UTC−3)
+  en: Brazil (UTC−3)
+availability:
+  pt: Aberto a vagas remotas
+  en: Open to remote roles
+contacts:
+  email: kauanfvale@gmail.com
+  linkedin: https://www.linkedin.com/in/kauanfon/
+  github: https://github.com/kaufon
+resume:
+  file: files/kauan-fonseca-resume-en.pdf
+  lang: en
+languages:
+  - name:
+      pt: Inglês
+      en: English
+    level:
+      pt: C1 (Avançado), 955/990 no TOEIC
+      en: C1 Advanced, 955/990 on the TOEIC
+  - name:
+      pt: Português
+      en: Portuguese
+    level:
+      pt: Nativo
+      en: Native
+featured:
+  - { name: { pt: FastAPI, en: FastAPI }, icon: fastapi }
+  - { name: { pt: TypeScript, en: TypeScript }, icon: typescript }
+  - { name: { pt: React Native, en: React Native }, icon: react }
+stack:
+  - category: { pt: Back-end, en: Back-end }
+    items:
+      - { name: { pt: Python, en: Python }, icon: python }
+      - { name: { pt: FastAPI, en: FastAPI }, icon: fastapi }
+      - { name: { pt: NestJS, en: NestJS }, icon: nestjs }
+      - { name: { pt: Fastify, en: Fastify }, icon: fastify }
+      - { name: { pt: pytest, en: pytest }, icon: pytest }
+      - { name: { pt: MQTT, en: MQTT }, icon: mqtt }
+      - { name: { pt: ESP32, en: ESP32 }, icon: espressif }
+      - { name: { pt: Node.js, en: Node.js }, icon: nodedotjs }
+      - { name: { pt: Ruby on Rails, en: Ruby on Rails }, icon: rubyonrails }
+  - category: { pt: Front-end, en: Front-end }
+    items:
+      - { name: { pt: TypeScript, en: TypeScript }, icon: typescript }
+      - { name: { pt: Next.js, en: Next.js }, icon: nextdotjs }
+      - { name: { pt: React básico, en: "React, basic" }, icon: react }
+      - { name: { pt: Vue.js, en: Vue.js }, icon: vuedotjs }
+  - category: { pt: Mobile, en: Mobile }
+    items:
+      - { name: { pt: React Native, en: React Native }, icon: react }
+      - { name: { pt: Flutter, en: Flutter }, icon: flutter }
+  - category: { pt: Banco de dados, en: Databases }
+    items:
+      - { name: { pt: PostgreSQL, en: PostgreSQL }, icon: postgresql }
+      - { name: { pt: Redis, en: Redis }, icon: redis }
+      - { name: { pt: Prisma, en: Prisma }, icon: prisma }
+  - category: { pt: DevOps, en: DevOps }
+    items:
+      - { name: { pt: Docker, en: Docker }, icon: docker }
+      - { name: { pt: GitLab CI/CD, en: GitLab CI/CD }, icon: gitlab }
+      - { name: { pt: Ansible, en: Ansible }, icon: ansible }
+      - { name: { pt: Grafana, en: Grafana }, icon: grafana }
+      - { name: { pt: Análise estática de código, en: Static code analysis }, icon: zap }
+      - { name: { pt: Análise passiva de segurança, en: Passive security analysis }, icon: radar }
+skills:
+  - group:
+      pt: Fluxo com IA
+      en: AI workflow
+    items:
+      pt:
+        - Claude Code
+        - agentes de IA para código
+        - desenvolvimento guiado por spec
+        - SDD (spec-driven development)
+      en:
+        - Claude Code
+        - AI coding agents
+        - spec-driven development
+        - SDD
+  - group:
+      pt: Práticas
+      en: Practices
+    items:
+      pt:
+        - code review
+        - Scrum
+        - Linux no dia a dia
+      en:
+        - code review
+        - Scrum
+        - Linux, daily driver
+interests:
+  - title:
+      pt: "Magic: The Gathering"
+      en: "Magic: The Gathering"
+    text:
+      pt: Jogo no formato Commander, partidas multiplayer com decks de 100 cartas.
+      en: I play the Commander format, multiplayer games with 100-card decks.
+    icon: layers
+  - title:
+      pt: Anime e mangá isekai
+      en: Isekai anime and manga
+    text:
+      pt: >-
+        Gosto de isekai, histórias em que o protagonista vai parar em outro
+        mundo, em anime e em mangá.
+      en: >-
+        I enjoy isekai, stories where the hero ends up in another world, in
+        both anime and manga.
+    icon: tv
+  - title:
+      pt: Games
+      en: Games
+    text:
+      pt: Jogo videogame no tempo livre.
+      en: I play video games in my free time.
+    icon: gamepad-2
+  - title:
+      pt: Maratonas de programação
+      en: Programming contests
+    text:
+      pt: >-
+        Participo de maratonas de programação: problemas de algoritmos
+        resolvidos contra o relógio.
+      en: >-
+        I take part in programming contests: solving algorithm problems
+        against the clock.
+    icon: trophy

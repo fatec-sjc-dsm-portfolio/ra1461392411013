@@ -1,0 +1,89 @@
+---
+import Icon from "./Icon.astro";
+import { dictionaries } from "../i18n/dictionaries";
+import type { Locale } from "../i18n/locales";
+import { withBase } from "../lib/paths";
+
+interface Props {
+  locale: Locale;
+  resumeHref: string;
+  linkedinHref: string;
+  githubHref: string;
+  email: string;
+}
+
+const { locale, resumeHref, linkedinHref, githubHref, email } = Astro.props;
+const dict = dictionaries[locale];
+---
+
+<ul class="action-links">
+  <li>
+    <a href={withBase(resumeHref)} class="action-links__item action-links__item--primary">
+      <Icon name="file-text" />
+      {dict.action.resume}
+    </a>
+  </li>
+  <li>
+    <a href={linkedinHref} target="_blank" rel="noopener noreferrer" class="action-links__item">
+      LinkedIn
+      <Icon name="arrow-up-right" size={16} />
+      <span class="visually-hidden">{dict.link.newTab}</span>
+    </a>
+  </li>
+  <li>
+    <a href={githubHref} target="_blank" rel="noopener noreferrer" class="action-links__item">
+      <Icon name="github" />
+      GitHub
+      <Icon name="arrow-up-right" size={16} />
+      <span class="visually-hidden">{dict.link.newTab}</span>
+    </a>
+  </li>
+  <li>
+    <a href={`mailto:${email}`} class="action-links__item">
+      <Icon name="mail" />
+      {dict.action.email}
+    </a>
+  </li>
+</ul>
+
+<style>
+  .action-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .action-links__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    padding: var(--space-2) var(--space-4);
+    border: var(--border-width) solid var(--color-border-strong);
+    border-radius: var(--radius-s);
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 600;
+    font-size: var(--text-small);
+  }
+
+  .action-links__item--primary {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .action-links__item--primary:hover {
+    background: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+    color: var(--color-on-accent);
+  }
+
+  .action-links__item:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+</style>

@@ -1,0 +1,125 @@
+---
+import { Picture } from "astro:assets";
+
+interface Props {
+  alt: string;
+  size?: "small" | "large";
+}
+
+const { alt, size = "small" } = Astro.props;
+
+const photos = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/profile/photo.{jpg,jpeg,png,webp,avif}",
+  { eager: true },
+);
+const photoModule = Object.values(photos)[0];
+const photo = photoModule?.default;
+
+const widths = size === "large" ? [160, 320, 480] : [96, 192, 352];
+---
+
+<span class={`photo-frame photo-frame--${size}`}>
+  {
+    photo ? (
+      <Picture
+        src={photo}
+        alt={alt}
+        widths={widths}
+        sizes={size === "large" ? "176px" : "(min-width: 960px) 176px, 96px"}
+        formats={["avif", "webp"]}
+        quality={90}
+        loading="eager"
+        fetchpriority="high"
+        data-state="photo"
+        class={`photo-slot photo-slot--${size}`}
+      />
+    ) : (
+      <span class={`photo-slot photo-slot--placeholder photo-slot--${size}`} data-state="placeholder" aria-hidden="true">
+        KF
+      </span>
+    )
+  }
+  <span class="photo-frame__bracket photo-frame__bracket--tl" aria-hidden="true" />
+  <span class="photo-frame__bracket photo-frame__bracket--tr" aria-hidden="true" />
+  <span class="photo-frame__bracket photo-frame__bracket--bl" aria-hidden="true" />
+  <span class="photo-frame__bracket photo-frame__bracket--br" aria-hidden="true" />
+</span>
+
+<style>
+  /* Colchetes nos 4 cantos, como marca de corte editorial (A.9). */
+  .photo-frame {
+    position: relative;
+    display: inline-flex;
+    padding: var(--space-2);
+  }
+
+  .photo-frame__bracket {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--color-accent);
+  }
+
+  .photo-frame__bracket--tl {
+    top: 0;
+    left: 0;
+    border-right: 0;
+    border-bottom: 0;
+  }
+
+  .photo-frame__bracket--tr {
+    top: 0;
+    right: 0;
+    border-left: 0;
+    border-bottom: 0;
+  }
+
+  .photo-frame__bracket--bl {
+    bottom: 0;
+    left: 0;
+    border-right: 0;
+    border-top: 0;
+  }
+
+  .photo-frame__bracket--br {
+    bottom: 0;
+    right: 0;
+    border-left: 0;
+    border-top: 0;
+  }
+
+  .photo-slot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-photo);
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  .photo-slot--small {
+    width: 96px;
+    height: 96px;
+  }
+
+  .photo-slot--large {
+    width: 176px;
+    height: 176px;
+  }
+
+  .photo-slot--placeholder {
+    border: 2px dashed var(--color-border-strong);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--color-muted);
+    background: var(--color-surface);
+  }
+
+  @media (min-width: 960px) {
+    .photo-slot--small {
+      width: 176px;
+      height: 176px;
+    }
+  }
+</style>

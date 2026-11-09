@@ -1,0 +1,31 @@
+---
+import type { Locale } from "../i18n/locales";
+import { withBase } from "../lib/paths";
+
+interface Props {
+  locale: Locale;
+  name: string;
+  jobTitle: string;
+  linkedin: string;
+  github: string;
+  photoUrl?: string;
+}
+
+const { locale, name, jobTitle, linkedin, github, photoUrl } = Astro.props;
+
+const person: Record<string, unknown> = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name,
+  jobTitle,
+  url: new URL(withBase(`${locale}/`), Astro.site).href,
+  sameAs: [linkedin, github],
+  knowsLanguage: ["pt-BR", "en-US"],
+};
+
+if (photoUrl) {
+  person.image = photoUrl;
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(person)} />

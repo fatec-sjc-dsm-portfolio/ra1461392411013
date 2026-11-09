@@ -1,0 +1,55 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  titleAccent?: string;
+  intro?: string;
+}
+
+const { eyebrow, title, titleAccent, intro } = Astro.props;
+
+// A última palavra vira serifa itálica no acento (A.9). O dicionário diz
+// qual é, porque cortar a string sozinho quebra em título de uma palavra só.
+const accent = titleAccent && title.endsWith(titleAccent) ? titleAccent : "";
+const lead = accent ? title.slice(0, title.length - accent.length) : title;
+---
+
+<div class="section-header">
+  {
+    eyebrow && (
+      <p class="section-header__eyebrow text-eyebrow">
+        <span class="section-header__rule" aria-hidden="true" />
+        {eyebrow}
+      </p>
+    )
+  }
+  <h2>{lead}{accent && <em class="title-accent">{accent}</em>}<span class="name-dot" aria-hidden="true">.</span></h2>
+  {intro && <p class="section-header__intro">{intro}</p>}
+</div>
+
+<style>
+  .section-header {
+    max-width: 68ch;
+    margin-bottom: var(--space-8);
+  }
+
+  .section-header__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-accent);
+    margin: 0 0 var(--space-3);
+  }
+
+  .section-header__rule {
+    display: inline-block;
+    width: var(--space-8);
+    height: 2px;
+    background: var(--color-accent);
+  }
+
+  .section-header__intro {
+    margin-top: var(--space-4);
+    color: var(--color-muted);
+  }
+</style>

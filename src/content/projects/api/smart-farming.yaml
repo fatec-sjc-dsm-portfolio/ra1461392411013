@@ -1,0 +1,37 @@
+kind: api
+title: Smart Farming
+period: { start: "2024-03", end: "2024-06" }
+api:
+  semester: 1
+  client: { pt: Interno (estufa inteligente da Fatec SJC), en: Internal (Fatec SJC smart greenhouse) }
+  teamSize: 6
+  role:
+    pt: Scrum Master e desenvolvedor backend
+    en: Scrum Master and back-end developer
+summary:
+  pt: >-
+    Site para monitorar a estufa inteligente da Fatec SJC: dados dos
+    sensores, checklist e plantas, com um dashboard de gráficos.
+  en: >-
+    Website to monitor Fatec SJC's smart greenhouse: sensor data,
+    checklists and plants, with a charts dashboard.
+contribution:
+  pt:
+    - "Scrum Master do time: condução do processo e remoção de impedimentos."
+    - Backend em Flask do gerenciamento de sensores.
+    - Integração dos sensores na interface, filtro de período no dashboard e proteção de rotas.
+  en:
+    - "Team Scrum Master: running the process and removing blockers."
+    - Flask back end for sensor management.
+    - Sensor integration in the UI, a period filter on the dashboard and route protection.
+takeaway:
+  pt: Primeiro contato com Scrum, como Scrum Master, e com desenvolvimento de software em equipe.
+  en: First contact with Scrum, as Scrum Master, and with team software development.
+stack: [Python, Flask, MySQL, Docker, ApexCharts, Tailwind CSS]
+links:
+  code: https://github.com/CtrI-Alt-Del/smart-farming
+image:
+  src: ../../../assets/projects/smart-farming.png
+  alt:
+    pt: Dashboard de sensores do Smart Farming, com gráficos de umidade e temperatura
+    en: Smart Farming sensor dashboard with humidity and temperature charts

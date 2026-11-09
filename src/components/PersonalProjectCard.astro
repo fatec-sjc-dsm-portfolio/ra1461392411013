@@ -1,0 +1,75 @@
+---
+import type { CollectionEntry } from "astro:content";
+import StackList from "./StackList.astro";
+import Icon from "./Icon.astro";
+import { dictionaries } from "../i18n/dictionaries";
+import type { Locale } from "../i18n/locales";
+import { parseYearMonth } from "../lib/period";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+  locale: Locale;
+}
+
+const { project, locale } = Astro.props;
+const data = project.data;
+const dict = dictionaries[locale];
+const year = parseYearMonth(data.period.start).year;
+const codeAria = dict.card.codeAria.replace("{projeto}", data.title);
+---
+
+<article class="personal-card">
+  <div class="personal-card__heading">
+    <h3>{data.title}<span class="name-dot" aria-hidden="true">.</span></h3>
+    <time datetime={data.period.start} class="text-mono">{year}</time>
+  </div>
+  <p>{data.summary[locale]}</p>
+  <div>
+    <h4>{dict.card.contribution}</h4>
+    <ul>
+      {data.contribution[locale].map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+  {data.takeaway && <p class="text-small personal-card__takeaway"><strong>{dict.card.takeaway}:</strong> {data.takeaway[locale]}</p>}
+  <StackList stack={data.stack} />
+  <a href={data.links.code} target="_blank" rel="noopener noreferrer" aria-label={codeAria} class="personal-card__code">
+    {dict.card.code}
+    <Icon name="arrow-up-right" size={16} />
+    <span class="visually-hidden">{dict.link.newTab}</span>
+  </a>
+</article>
+
+<style>
+  .personal-card {
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-m);
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .personal-card:focus-within {
+    outline: var(--focus-width) solid var(--color-accent);
+    outline-offset: var(--focus-offset);
+  }
+
+  .personal-card__heading {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    justify-content: space-between;
+  }
+
+  .personal-card__takeaway {
+    color: var(--color-muted);
+  }
+
+  .personal-card__code {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 600;
+    text-decoration: none;
+  }
+</style>

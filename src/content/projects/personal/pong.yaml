@@ -1,0 +1,15 @@
+kind: personal
+draft: true
+title: Pong
+period: { start: "2024-04", end: "2024-04" }
+summary:
+  pt: Jogo Pong escrito em C++.
+  en: Pong game written in C++.
+contribution:
+  pt:
+    - "Projeto individual: todo o código do jogo."
+  en:
+    - "Solo project: all of the game code."
+stack: [C++]
+links:
+  code: https://github.com/kaufon/Pong-Game-in-CPP

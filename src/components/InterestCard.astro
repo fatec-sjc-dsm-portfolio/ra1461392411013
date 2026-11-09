@@ -1,0 +1,38 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  icon: "layers" | "tv" | "gamepad-2" | "trophy";
+  title: string;
+  text: string;
+}
+
+const { icon, title, text } = Astro.props;
+---
+
+<div class="interest-card">
+  <Icon name={icon} size={24} />
+  <h3>{title}</h3>
+  <p class="text-small">{text}</p>
+</div>
+
+<style>
+  .interest-card {
+    padding: var(--space-4);
+    background: var(--color-surface);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-m);
+    display: grid;
+    gap: var(--space-2);
+    color: var(--color-accent);
+  }
+
+  .interest-card h3 {
+    color: var(--color-text);
+    font-size: 1.125rem;
+  }
+
+  .interest-card p {
+    color: var(--color-muted);
+  }
+</style>

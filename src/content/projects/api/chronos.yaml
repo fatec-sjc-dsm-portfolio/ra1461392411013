@@ -1,0 +1,39 @@
+kind: api
+title: Chronos
+period: { start: "2025-02", end: "2025-06" }
+api:
+  semester: 3
+  client: { pt: Necto Systems, en: Necto Systems }
+  teamSize: 6
+  role:
+    pt: Desenvolvedor full-stack com foco em backend (Scrum Team)
+    en: Full-stack developer, backend focus (Scrum Team)
+summary:
+  pt: >-
+    Sistema web de ponto online, com registro de ponto, jornadas, banco de
+    horas, solicitações com aprovação do gestor e relatórios.
+  en: >-
+    Web time-tracking system with clock-ins, work schedules, an hour bank,
+    manager-approved requests and reports.
+contribution:
+  pt:
+    - Arquitetura e modelagem de domínio do backend em Spring Boot.
+    - Autenticação com JWT e gestão de colaboradores, no back-end e no front-end.
+    - "Solicitações com aprovação do gestor: ajuste de ponto, folga, abono, férias e afastamento."
+    - Relatórios de ponto e anexos das solicitações em S3.
+  en:
+    - Back-end architecture and domain modeling in Spring Boot.
+    - JWT authentication and employee management, on the back end and the front end.
+    - "Manager-approved requests: time adjustments, days off, excused absences, vacations and leaves."
+    - Time-tracking reports and request attachments stored in S3.
+takeaway:
+  pt: Primeiro contato com Spring Boot; assumi mais responsabilidade no time e evoluí como full-stack.
+  en: First contact with Spring Boot; took on more responsibility in the team and grew as a full-stack developer.
+stack: [Java, Spring Boot, Next.js, TypeScript, PostgreSQL]
+links:
+  code: https://github.com/CtrI-Alt-Del/chronos
+image:
+  src: ../../../assets/projects/chronos.png
+  alt:
+    pt: Tela de registro de ponto do Chronos
+    en: Chronos clock-in screen

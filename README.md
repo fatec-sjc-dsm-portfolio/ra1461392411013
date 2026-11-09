@@ -1,7 +1,7 @@
 # Kauan Fonseca · Portfolio
 
 Static, bilingual (PT-BR / EN-US) portfolio built with Astro 6, published at
-https://kaufon.github.io/. The full specification lives in
+https://fatec-sjc-dsm-portfolio.github.io/ra1461392411013/. The full specification lives in
 [`docs/SPEC.md`](docs/SPEC.md); project conventions for AI coding agents are
 in [`CLAUDE.md`](CLAUDE.md).
 
@@ -57,7 +57,7 @@ Other useful commands:
 ## Kauan Fonseca · Portfólio (PT-BR)
 
 Portfólio estático e bilíngue (PT-BR / EN-US) feito em Astro 6, publicado em
-https://kaufon.github.io/. O spec completo está em
+https://fatec-sjc-dsm-portfolio.github.io/ra1461392411013/. O spec completo está em
 [`docs/SPEC.md`](docs/SPEC.md); as convenções do projeto para agentes de IA
 estão em [`CLAUDE.md`](CLAUDE.md).
 

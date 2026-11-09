@@ -1,0 +1,45 @@
+kind: api
+title: Gaia
+period: { start: "2025-08", end: "2025-11" }
+api:
+  semester: 4
+  client: { pt: Tecsus, en: Tecsus }
+  teamSize: 6
+  role:
+    pt: Desenvolvedor (Scrum Team)
+    en: Developer (Scrum Team)
+summary:
+  pt: >-
+    Estações meteorológicas de baixo custo: sensores enviam vento, chuva,
+    umidade, temperatura e pressão via MQTT, e o servidor alimenta um
+    portal com dashboards.
+  en: >-
+    Low-cost weather stations: sensors send wind, rain, humidity,
+    temperature and pressure readings over MQTT, and the backend feeds a
+    web portal with dashboards.
+contribution:
+  pt:
+    - Firmware do ESP32 e coletor que recebe os dados das estações via MQTT.
+    - "Setup do servidor em NestJS: Docker, CI e padrão de commits."
+    - "Módulo de telemetria: tipos de parâmetro e parser dos dados das estações."
+  en:
+    - ESP32 firmware and the collector that receives station data over MQTT.
+    - "NestJS server setup: Docker, CI and commit conventions."
+    - "Telemetry module: parameter types and the station data parser."
+takeaway:
+  pt: >-
+    IoT de ponta a ponta: do firmware no ESP32 às mensagens MQTT e ao
+    processamento no servidor.
+  en: >-
+    End-to-end IoT: from ESP32 firmware to MQTT messaging and server-side
+    processing.
+stack: [ESP32, MQTT (HiveMQ), NestJS, PostgreSQL, MongoDB, Redis]
+links:
+  code: https://github.com/CtrI-Alt-Del/gaia
+image:
+  src: ../../../assets/projects/gaia.png
+  alt:
+    pt: >-
+      Diagrama da arquitetura do Gaia: estação, broker MQTT, coletor,
+      filas, bancos de dados e portal web
+    en: "Gaia architecture diagram: station, MQTT broker, collector, queues, databases and web portal"

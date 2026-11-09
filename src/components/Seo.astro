@@ -1,0 +1,44 @@
+---
+import { localeMeta, type Locale } from "../i18n/locales";
+import { withBase } from "../lib/paths";
+
+interface Props {
+  locale: Locale | "x-default";
+  title: string;
+  description: string;
+  path: string;
+  noindex?: boolean;
+  ogImagePath?: string;
+}
+
+const { locale, title, description, path, noindex = false, ogImagePath } = Astro.props;
+
+const canonicalUrl = new URL(withBase(path), Astro.site);
+const ptUrl = new URL(withBase("pt/"), Astro.site);
+const enUrl = new URL(withBase("en/"), Astro.site);
+const rootUrl = new URL(withBase(""), Astro.site);
+
+const ogLocale = locale === "x-default" ? "en_US" : localeMeta[locale].ogLocale;
+const ogImage = ogImagePath ? new URL(withBase(ogImagePath), Astro.site) : undefined;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="color-scheme" content="light dark" />
+{noindex && <meta name="robots" content="noindex" />}
+<link rel="canonical" href={canonicalUrl.href} />
+<link rel="alternate" hreflang="pt-BR" href={ptUrl.href} />
+<link rel="alternate" hreflang="en-US" href={enUrl.href} />
+<link rel="alternate" hreflang="x-default" href={rootUrl.href} />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl.href} />
+<meta property="og:locale" content={ogLocale} />
+<meta property="og:locale:alternate" content={ogLocale === "pt_BR" ? "en_US" : "pt_BR"} />
+{ogImage && <meta property="og:image" content={ogImage.href} />}
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="icon" href={withBase("favicon.svg")} type="image/svg+xml" />
+<link rel="apple-touch-icon" href={withBase("apple-touch-icon.png")} />

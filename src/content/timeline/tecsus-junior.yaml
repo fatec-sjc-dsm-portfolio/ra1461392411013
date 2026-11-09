@@ -1,0 +1,35 @@
+kind: professional
+title: Tecsus
+subtitle:
+  pt: Desenvolvedor de Software Júnior (PJ)
+  en: Junior Software Developer (contractor)
+start: "2025-08"
+end: null
+highlights:
+  pt:
+    - >-
+      Construo e mantenho serviços em Python para dois produtos SaaS de
+      medição de gás e água; um deles tem 7 repositórios ligados por gRPC.
+    - >-
+      Migrei um banco Oracle legado para PostgreSQL em 6 meses: cerca de 7
+      milhões de linhas, com 98% dos dados preservados.
+    - >-
+      Escrevi um playbook Ansible que roda SAST (Semgrep) e DAST (OWASP ZAP)
+      dentro do pipeline do GitLab CI/CD.
+    - >-
+      Construí telas em React Native que imprimem em impressoras Zebra via
+      Bluetooth (ZPL).
+  en:
+    - >-
+      Build and maintain Python services for two gas and water metering SaaS
+      products; one of them spans 7 repositories connected by gRPC.
+    - >-
+      Migrated a legacy Oracle database to PostgreSQL in 6 months: about 7
+      million rows, with 98% of data preserved.
+    - >-
+      Wrote an Ansible playbook that runs SAST (Semgrep) and DAST (OWASP ZAP)
+      inside the GitLab CI/CD pipeline.
+    - >-
+      Built React Native screens that print to Zebra printers over Bluetooth
+      (ZPL).
+stack: [Python, FastAPI, gRPC, Redis, PostgreSQL, Ansible, GitLab CI/CD, React Native]

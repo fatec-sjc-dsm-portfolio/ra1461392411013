@@ -1,0 +1,221 @@
+---
+import { getCollection } from "astro:content";
+import { getImage } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SkipLink from "../../components/SkipLink.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import Hero from "../../components/Hero.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import ProjectTabs from "../../components/ProjectTabs.astro";
+import TestimonialCarousel from "../../components/TestimonialCarousel.astro";
+import ApiProjectCard from "../../components/ApiProjectCard.astro";
+import Timeline from "../../components/Timeline.astro";
+import PersonalProjectCard from "../../components/PersonalProjectCard.astro";
+import SkillGroups from "../../components/SkillGroups.astro";
+import InterestCard from "../../components/InterestCard.astro";
+import ContactBlock from "../../components/ContactBlock.astro";
+import JsonLd from "../../components/JsonLd.astro";
+import { dictionaries } from "../../i18n/dictionaries";
+import { locales, type Locale } from "../../i18n/locales";
+import { sortApiProjects, sortPersonalProjects } from "../../lib/sort";
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const locale = lang as Locale;
+const dict = dictionaries[locale];
+
+const [profileEntries, timelineEntries, projectEntries, testimonialEntries] = await Promise.all([
+  getCollection("profile"),
+  getCollection("timeline"),
+  getCollection("projects"),
+  getCollection("testimonials"),
+]);
+
+const profile = profileEntries[0];
+if (!profile) throw new Error("Missing profile entry");
+
+// Mais recente primeiro.
+const timeline = timelineEntries.sort((a, b) => (a.data.start < b.data.start ? 1 : -1));
+if (timeline.length === 0) throw new Error("Missing timeline entries");
+
+// Depoimentos reais antes dos exemplos em lorem ipsum.
+const testimonials = [...testimonialEntries].sort(
+  (a, b) => Number(a.data.placeholder) - Number(b.data.placeholder),
+);
+
+const apiProjects = sortApiProjects(projectEntries.filter((p) => p.data.kind === "api"));
+const personalProjects = sortPersonalProjects(
+  projectEntries.filter((p) => p.data.kind === "personal"),
+);
+
+const photoModules = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/profile/photo.{jpg,jpeg,png,webp,avif}",
+  { eager: true },
+);
+const photoMeta = Object.values(photoModules)[0]?.default;
+const photoUrl = photoMeta ? new URL((await getImage({ src: photoMeta })).src, Astro.site).href : undefined;
+---
+
+<BaseLayout
+  locale={locale}
+  title={dict.meta.title}
+  description={dict.meta.description}
+  path={`${locale}/`}
+  ogImagePath={`og/og-${locale === "pt" ? "pt-BR" : "en-US"}.png`}
+>
+  <JsonLd
+    locale={locale}
+    name={profile.data.name}
+    jobTitle={profile.data.headline[locale]}
+    linkedin={profile.data.contacts.linkedin}
+    github={profile.data.contacts.github}
+    photoUrl={photoUrl}
+  />
+  <SkipLink label={dict.skip} />
+  <SiteHeader locale={locale} name={profile.data.name} />
+
+  <main id="main">
+    <Hero
+      locale={locale}
+      name={profile.data.name}
+      headline={profile.data.headline[locale]}
+      summary={profile.data.summary[locale]}
+      location={profile.data.location[locale]}
+      availability={profile.data.availability[locale]}
+      photoAlt={dict.photo.alt}
+      resumeHref={profile.data.resume.file}
+      linkedinHref={profile.data.contacts.linkedin}
+      githubHref={profile.data.contacts.github}
+      email={profile.data.contacts.email}
+    />
+
+    <section id="experience" class="section section--band">
+      <div class="container">
+        <SectionHeader
+          eyebrow={dict.exp.eyebrow}
+          title={dict.exp.title}
+          titleAccent={dict.exp.titleAccent}
+        />
+        <Timeline entries={timeline} locale={locale} />
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="container">
+        <SectionHeader
+          eyebrow={dict.skills.eyebrow}
+          title={dict.skills.title}
+          titleAccent={dict.skills.titleAccent}
+        />
+        <SkillGroups profile={profile} locale={locale} />
+      </div>
+    </section>
+
+    <section id="projects" class="section section--band">
+      <div class="container">
+        <SectionHeader
+          eyebrow={dict.projects.eyebrow}
+          title={dict.projects.title}
+          titleAccent={dict.projects.titleAccent}
+          intro={dict.projects.intro}
+        />
+        <ProjectTabs
+          academicLabel={dict.projects.tabAcademic}
+          personalLabel={dict.projects.tabPersonal}
+          academicCount={apiProjects.length}
+          personalCount={personalProjects.length}
+        >
+          <div slot="academic" class="card-stack">
+            {apiProjects.map((project) => <ApiProjectCard project={project} locale={locale} />)}
+          </div>
+          <div slot="personal" class="card-grid">
+            {personalProjects.map((project) => <PersonalProjectCard project={project} locale={locale} />)}
+          </div>
+        </ProjectTabs>
+      </div>
+    </section>
+
+    <section id="testimonials" class="section">
+      <div class="container">
+        <SectionHeader
+          eyebrow={dict.testimonials.eyebrow}
+          title={dict.testimonials.title}
+          titleAccent={dict.testimonials.titleAccent}
+        />
+        <TestimonialCarousel
+          entries={testimonials}
+          locale={locale}
+          label={dict.testimonials.label}
+          photoAltTemplate={dict.testimonials.photoAlt}
+        />
+      </div>
+    </section>
+
+    {
+      /* Seção "about" desativada a pedido do Kauan (D-38 em docs/SPEC.md).
+         Os dados continuam em profile.yaml; troque `false` por `true` para reativar. */
+      false && (
+        <section id="about" class="section section--band">
+          <div class="container">
+            <SectionHeader
+              eyebrow={dict.interests.eyebrow}
+              title={dict.interests.title}
+              titleAccent={dict.interests.titleAccent}
+            />
+            <div class="card-grid card-grid--about">
+              {profile!.data.interests.map((interest) => (
+                <InterestCard
+                  icon={interest.icon as "layers" | "tv" | "gamepad-2" | "trophy"}
+                  title={interest.title[locale]}
+                  text={interest.text[locale]}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    <section id="contact" class="section">
+      <div class="container">
+        <SectionHeader
+          eyebrow={dict.contact.eyebrow}
+          title={dict.contact.title}
+          titleAccent={dict.contact.titleAccent}
+          intro={dict.contact.intro}
+        />
+        <ContactBlock
+          locale={locale}
+          email={profile.data.contacts.email}
+          linkedinHref={profile.data.contacts.linkedin}
+          githubHref={profile.data.contacts.github}
+          resumeHref={profile.data.resume.file}
+        />
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter locale={locale} />
+</BaseLayout>
+
+<style>
+  .card-stack {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .card-grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  /* Os 4 cartões de "Sobre" cabem numa linha só; com 260px sobra um órfão. */
+  .card-grid--about {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+</style>

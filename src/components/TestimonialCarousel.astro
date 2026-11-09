@@ -1,0 +1,151 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Picture } from "astro:assets";
+import type { Locale } from "../i18n/locales";
+
+interface Props {
+  entries: CollectionEntry<"testimonials">[];
+  locale: Locale;
+  label: string;
+  photoAltTemplate: string;
+}
+
+const { entries, locale, label, photoAltTemplate } = Astro.props;
+
+function initials(name: string): string {
+  return name
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part.charAt(0).toUpperCase())
+    .join("");
+}
+---
+
+{/* Carrossel em CSS: scroll-snap, sem JavaScript e sem rodar sozinho
+    (RNF-15 proíbe animação automática, e carrossel andando atrapalha a
+    apresentação). O trilho é focável e tem role/label porque região com
+    rolagem precisa ser alcançável pelo teclado. */}
+<div class="carousel" role="region" aria-label={label} tabindex="0">
+  <ul class="carousel__track">
+    {
+      entries.map((entry) => (
+        <li class="carousel__item">
+          <figure class="testimonial">
+            <blockquote class="testimonial__quote">{entry.data.quote[locale]}</blockquote>
+            <figcaption class="testimonial__person">
+              {entry.data.photo ? (
+                <Picture
+                  src={entry.data.photo}
+                  alt={photoAltTemplate.replace("{nome}", entry.data.name).replace("{name}", entry.data.name)}
+                  widths={[44, 88]}
+                  sizes="44px"
+                  formats={["avif", "webp"]}
+                  loading="lazy"
+                  class="testimonial__avatar testimonial__avatar--photo"
+                />
+              ) : (
+                <span class="testimonial__avatar" aria-hidden="true">
+                  {initials(entry.data.name)}
+                </span>
+              )}
+              <span>
+                <span class="testimonial__name">{entry.data.name}</span>
+                <span class="testimonial__role text-mono">{entry.data.role[locale]}</span>
+              </span>
+            </figcaption>
+          </figure>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .carousel {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /* Espaço para o anel de foco não ser cortado pelo overflow. */
+    padding: var(--space-1);
+    margin: calc(-1 * var(--space-1));
+  }
+
+  .carousel__track {
+    display: flex;
+    gap: var(--space-6);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .carousel__item {
+    flex: 0 0 min(100%, 24rem);
+    scroll-snap-align: start;
+  }
+
+  .testimonial {
+    height: 100%;
+    margin: 0;
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-m);
+    display: grid;
+    gap: var(--space-6);
+    align-content: space-between;
+  }
+
+  .testimonial__quote {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    line-height: 1.5;
+  }
+
+  .testimonial__quote::before {
+    content: "“";
+    color: var(--color-accent);
+  }
+
+  .testimonial__quote::after {
+    content: "”";
+    color: var(--color-accent);
+  }
+
+  .testimonial__person {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .testimonial__avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-accent-subtle);
+    color: var(--color-accent);
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+
+  .testimonial__avatar--photo {
+    /* Sem height:auto o atributo height do <img> venceria o aspect-ratio. */
+    height: 44px;
+    object-fit: cover;
+    background: none;
+  }
+
+  .testimonial__name {
+    display: block;
+    font-weight: 600;
+  }
+
+  .testimonial__role {
+    display: block;
+    color: var(--color-muted);
+    text-transform: uppercase;
+  }
+</style>

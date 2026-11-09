@@ -1,0 +1,43 @@
+kind: api
+title: Animus
+period: { start: "2026-03", end: "2026-06" }
+api:
+  semester: 5
+  client: { pt: Xertica, en: Xertica }
+  teamSize: 6
+  role:
+    pt: Desenvolvedor (Scrum Team)
+    en: Developer (Scrum Team)
+summary:
+  pt: >-
+    App móvel com IA que analisa petições iniciais e encontra precedentes
+    jurídicos relevantes.
+  en: >-
+    AI mobile app that analyzes initial court petitions and finds relevant
+    legal precedents.
+contribution:
+  pt:
+    - Endpoint de polling das análises em processamento e gatilhos de notificação push (OneSignal) para análise de petição e busca de precedentes.
+    - Job de vetorização de precedentes com Qdrant.
+    - Login com Google, redefinição de senha, URL assinada para upload e movimentação de análises entre pastas.
+    - Telas e testes em Flutter; versionamento automático no CI.
+  en:
+    - Polling endpoint for in-progress analyses and push notification triggers (OneSignal) for petition analysis and precedent searches.
+    - Precedent vectorization job with Qdrant.
+    - Google sign-in, password reset, signed upload URLs and moving analyses between folders.
+    - Flutter screens and tests; automatic versioning in CI.
+takeaway:
+  pt: >-
+    Busca vetorial e processamento assíncrono na prática: vetorização com
+    Qdrant, jobs em segundo plano e notificações push.
+  en: >-
+    Hands-on vector search and asynchronous processing: Qdrant
+    vectorization, background jobs and push notifications.
+stack: [Flutter, FastAPI, PostgreSQL, Qdrant, Google Gemini, Inngest, OneSignal, Google Cloud]
+links:
+  code: https://github.com/CtrI-Alt-Del/animus
+image:
+  src: ../../../assets/projects/animus.jpg
+  alt:
+    pt: Diagrama de infraestrutura do Animus no Google Cloud
+    en: Animus infrastructure diagram on Google Cloud

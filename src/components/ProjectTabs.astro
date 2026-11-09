@@ -1,0 +1,99 @@
+---
+interface Props {
+  academicLabel: string;
+  personalLabel: string;
+  academicCount: number;
+  personalCount: number;
+}
+
+const { academicLabel, personalLabel, academicCount, personalCount } = Astro.props;
+---
+
+{/* Abas em radio + CSS: trocam sem JavaScript (RF-04). Os dois painéis
+    existem no HTML; o inativo some por CSS, então o Ctrl+F do avaliador
+    e o leitor de tela continuam achando o conteúdo. */}
+<div class="tabs">
+  <input
+    type="radio"
+    name="project-tab"
+    id="tab-academic"
+    class="tabs__input visually-hidden"
+    checked
+  />
+  <input type="radio" name="project-tab" id="tab-personal" class="tabs__input visually-hidden" />
+
+  <div class="tabs__bar">
+    <label for="tab-academic" class="tabs__label">
+      {academicLabel}
+      <span class="tabs__count">{academicCount}</span>
+    </label>
+    <label for="tab-personal" class="tabs__label">
+      {personalLabel}
+      <span class="tabs__count">{personalCount}</span>
+    </label>
+  </div>
+
+  <div class="tabs__panel tabs__panel--academic" id="panel-academic">
+    <slot name="academic" />
+  </div>
+  <div class="tabs__panel tabs__panel--personal" id="panel-personal">
+    <slot name="personal" />
+  </div>
+</div>
+
+<style>
+  .tabs__bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6) var(--space-8);
+    margin-bottom: var(--space-8);
+    border-bottom: var(--border-width) solid var(--color-border);
+  }
+
+  .tabs__label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) 0;
+    margin-bottom: -1px;
+    border-bottom: 2px solid transparent;
+    font-family: var(--font-mono);
+    font-size: var(--text-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    cursor: pointer;
+    min-height: 44px;
+  }
+
+  .tabs__label:hover {
+    color: var(--color-text);
+  }
+
+  .tabs__count {
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  .tabs__panel {
+    display: none;
+  }
+
+  #tab-academic:checked ~ .tabs__bar .tabs__label[for="tab-academic"],
+  #tab-personal:checked ~ .tabs__bar .tabs__label[for="tab-personal"] {
+    color: var(--color-text);
+    border-bottom-color: var(--color-accent);
+  }
+
+  #tab-academic:checked ~ .tabs__panel--academic,
+  #tab-personal:checked ~ .tabs__panel--personal {
+    display: block;
+  }
+
+  /* O input fica visualmente escondido mas focável; o foco aparece no label. */
+  #tab-academic:focus-visible ~ .tabs__bar .tabs__label[for="tab-academic"],
+  #tab-personal:focus-visible ~ .tabs__bar .tabs__label[for="tab-personal"] {
+    outline: var(--focus-width) solid var(--color-accent);
+    outline-offset: var(--focus-offset);
+  }
+</style>

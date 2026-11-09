@@ -1,0 +1,21 @@
+kind: personal
+title: InVuecer
+period: { start: "2024-11", end: "2024-11" }
+summary:
+  pt: >-
+    Cadastro de produtos, fornecedores e entradas de estoque, com
+    histórico, num monorepo com Turborepo.
+  en: Products, suppliers and stock entries with history, in a Turborepo monorepo.
+contribution:
+  pt:
+    - >-
+      Projeto individual: modelagem das entidades, API em Fastify com
+      Prisma e front-end em Vue com Pinia e PrimeVue.
+  en:
+    - "Solo project: entity modeling, a Fastify + Prisma API and a Vue front end with Pinia and PrimeVue."
+takeaway:
+  pt: Prática de Vue 3 com TypeScript e de monorepo com Turborepo.
+  en: Practice with Vue 3 + TypeScript and a Turborepo monorepo.
+stack: [TypeScript, Vue, Pinia, PrimeVue, Fastify, Prisma, Turborepo]
+links:
+  code: https://github.com/kaufon/InVuecer

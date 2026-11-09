@@ -1,0 +1,139 @@
+/* Ícones de tecnologia (Simple Icons, CC0).
+   Entram por CSS mask, e não inline no HTML, por dois motivos:
+   os 18 paths somam ~34 KB e estourariam o orçamento de 80 KB de HTML
+   (RNF-06), e a mask pinta com currentColor, então o ícone acompanha
+   os temas claro e escuro. Os url() são relativos: o Vite reescreve
+   para o caminho com hash e com o BASE aplicado (RNF-04). */
+
+.tech-icon {
+  display: inline-block;
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+  /* Acompanha a primeira linha quando o nome da tecnologia quebra. */
+  margin-top: 0.1em;
+  background-color: currentColor;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.tech-icon--python {
+  -webkit-mask-image: url("../assets/icons/tech/python.svg");
+  mask-image: url("../assets/icons/tech/python.svg");
+}
+
+.tech-icon--fastapi {
+  -webkit-mask-image: url("../assets/icons/tech/fastapi.svg");
+  mask-image: url("../assets/icons/tech/fastapi.svg");
+}
+
+.tech-icon--nestjs {
+  -webkit-mask-image: url("../assets/icons/tech/nestjs.svg");
+  mask-image: url("../assets/icons/tech/nestjs.svg");
+}
+
+.tech-icon--fastify {
+  -webkit-mask-image: url("../assets/icons/tech/fastify.svg");
+  mask-image: url("../assets/icons/tech/fastify.svg");
+}
+
+.tech-icon--pytest {
+  -webkit-mask-image: url("../assets/icons/tech/pytest.svg");
+  mask-image: url("../assets/icons/tech/pytest.svg");
+}
+
+.tech-icon--mqtt {
+  -webkit-mask-image: url("../assets/icons/tech/mqtt.svg");
+  mask-image: url("../assets/icons/tech/mqtt.svg");
+}
+
+.tech-icon--espressif {
+  -webkit-mask-image: url("../assets/icons/tech/espressif.svg");
+  mask-image: url("../assets/icons/tech/espressif.svg");
+}
+
+.tech-icon--typescript {
+  -webkit-mask-image: url("../assets/icons/tech/typescript.svg");
+  mask-image: url("../assets/icons/tech/typescript.svg");
+}
+
+.tech-icon--nextdotjs {
+  -webkit-mask-image: url("../assets/icons/tech/nextdotjs.svg");
+  mask-image: url("../assets/icons/tech/nextdotjs.svg");
+}
+
+.tech-icon--react {
+  -webkit-mask-image: url("../assets/icons/tech/react.svg");
+  mask-image: url("../assets/icons/tech/react.svg");
+}
+
+.tech-icon--flutter {
+  -webkit-mask-image: url("../assets/icons/tech/flutter.svg");
+  mask-image: url("../assets/icons/tech/flutter.svg");
+}
+
+.tech-icon--postgresql {
+  -webkit-mask-image: url("../assets/icons/tech/postgresql.svg");
+  mask-image: url("../assets/icons/tech/postgresql.svg");
+}
+
+.tech-icon--redis {
+  -webkit-mask-image: url("../assets/icons/tech/redis.svg");
+  mask-image: url("../assets/icons/tech/redis.svg");
+}
+
+.tech-icon--prisma {
+  -webkit-mask-image: url("../assets/icons/tech/prisma.svg");
+  mask-image: url("../assets/icons/tech/prisma.svg");
+}
+
+.tech-icon--docker {
+  -webkit-mask-image: url("../assets/icons/tech/docker.svg");
+  mask-image: url("../assets/icons/tech/docker.svg");
+}
+
+.tech-icon--gitlab {
+  -webkit-mask-image: url("../assets/icons/tech/gitlab.svg");
+  mask-image: url("../assets/icons/tech/gitlab.svg");
+}
+
+.tech-icon--ansible {
+  -webkit-mask-image: url("../assets/icons/tech/ansible.svg");
+  mask-image: url("../assets/icons/tech/ansible.svg");
+}
+
+.tech-icon--grafana {
+  -webkit-mask-image: url("../assets/icons/tech/grafana.svg");
+  mask-image: url("../assets/icons/tech/grafana.svg");
+}
+
+.tech-icon--rubyonrails {
+  -webkit-mask-image: url("../assets/icons/tech/rubyonrails.svg");
+  mask-image: url("../assets/icons/tech/rubyonrails.svg");
+}
+
+.tech-icon--vuedotjs {
+  -webkit-mask-image: url("../assets/icons/tech/vuedotjs.svg");
+  mask-image: url("../assets/icons/tech/vuedotjs.svg");
+}
+
+.tech-icon--nodedotjs {
+  -webkit-mask-image: url("../assets/icons/tech/nodedotjs.svg");
+  mask-image: url("../assets/icons/tech/nodedotjs.svg");
+}
+
+/* Os dois abaixo são do Lucide (ISC), não do Simple Icons: descrevem uma
+   prática, não uma marca. */
+.tech-icon--zap {
+  -webkit-mask-image: url("../assets/icons/tech/zap.svg");
+  mask-image: url("../assets/icons/tech/zap.svg");
+}
+
+.tech-icon--radar {
+  -webkit-mask-image: url("../assets/icons/tech/radar.svg");
+  mask-image: url("../assets/icons/tech/radar.svg");
+}

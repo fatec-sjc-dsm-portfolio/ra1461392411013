@@ -1,0 +1,55 @@
+---
+import "../styles/global.css";
+import Seo from "../components/Seo.astro";
+import { dictionaries } from "../i18n/dictionaries";
+import { withBase } from "../lib/paths";
+import { CSP_CONTENT } from "../lib/csp";
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta http-equiv="Content-Security-Policy" content={CSP_CONTENT} />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Seo
+      locale="x-default"
+      title="404"
+      description="Página não encontrada / Page not found"
+      path="404.html"
+      noindex
+    />
+  </head>
+  <body>
+    <main id="main" class="not-found">
+      <h1 class="visually-hidden">404</h1>
+      <section lang="pt-BR">
+        <h2>{dictionaries.pt.notFound.title}</h2>
+        <p>{dictionaries.pt.notFound.text}</p>
+        <a href={withBase("pt/")}>{dictionaries.pt.notFound.link}</a>
+      </section>
+      <section lang="en-US">
+        <h2>{dictionaries.en.notFound.title}</h2>
+        <p>{dictionaries.en.notFound.text}</p>
+        <a href={withBase("en/")}>{dictionaries.en.notFound.link}</a>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  .not-found {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-8);
+    text-align: center;
+    padding: var(--space-6);
+  }
+
+  .not-found a {
+    font-weight: 600;
+  }
+</style>

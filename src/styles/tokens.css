@@ -1,0 +1,80 @@
+/* Os dois temas vivem num valor só, via light-dark(). Quem decide qual sai
+   é o `color-scheme`: sem data-theme ele vale `light dark` e segue o
+   sistema; com data-theme o script fixa um dos dois (D-29). */
+:root {
+  color-scheme: light dark;
+
+  --color-bg: light-dark(#eae3d6, #14150f);
+  --color-surface: light-dark(#f1ebe0, #1d1f16);
+  --color-band: light-dark(#e1d9c7, #191b13);
+  --color-text: light-dark(#1a1712, #eae5d8);
+  --color-muted: light-dark(#514c42, #a8a292);
+  --color-accent: light-dark(#44691f, #9cc47a);
+  --color-accent-hover: light-dark(#33500f, #b6da95);
+  --color-accent-subtle: light-dark(#dbe4ca, #25301b);
+  --color-on-accent: light-dark(#f4f0e6, #14150f);
+  --color-border: light-dark(#d3cebb, #363a2b);
+  --color-border-strong: light-dark(#7d7764, #6e7459);
+  --color-grid: light-dark(rgb(26 23 18 / 2.5%), rgb(234 229 216 / 4%));
+
+  --font-display: "Newsreader Variable", "Iowan Old Style", Georgia, serif;
+  --font-body: "Public Sans Variable", system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SFMono-Regular", Menlo, Consolas,
+    monospace;
+
+  --text-h1: clamp(2.75rem, 1.8rem + 4.2vw, 4.5rem);
+  --text-h2: clamp(2rem, 1.5rem + 2.2vw, 3rem);
+  --text-h3: 1.5rem;
+  --text-body: 1.0625rem;
+  --text-small: 0.9375rem;
+  --text-mono: 0.875rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-section: 4rem;
+
+  --radius-s: 6px;
+  --radius-m: 12px;
+  --radius-pill: 999px;
+  --radius-photo: 16px;
+
+  --border-width: 1px;
+  --focus-width: 3px;
+  --focus-offset: 2px;
+
+  --transition-fast: 150ms ease-out;
+
+  --container-max: 72rem;
+
+  /* Folga da âncora sob o cabeçalho. No mobile ele não é sticky, então
+     basta um respiro; a partir de 640 px vale a altura dele. */
+  --header-offset: var(--space-4);
+}
+
+/* Escolha manual do tema (D-29). */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --header-offset: 6rem;
+  }
+}
+
+@media (min-width: 960px) {
+  :root {
+    --text-body: 1.125rem;
+    --space-section: 6rem;
+  }
+}

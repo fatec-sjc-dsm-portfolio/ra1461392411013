@@ -1,0 +1,41 @@
+kind: api
+title: Stocker
+period: { start: "2024-09", end: "2024-12" }
+api:
+  semester: 2
+  client: { pt: Interno (Fatec SJC), en: Internal (Fatec SJC) }
+  teamSize: 6
+  role:
+    pt: Desenvolvedor full-stack com foco em front-end (Scrum Team)
+    en: Full-stack developer, front-end focus (Scrum Team)
+summary:
+  pt: >-
+    Aplicação web de gestão de estoque: produtos, lotes, entradas e
+    saídas, relatórios e permissões em que só administradores fazem ações
+    críticas.
+  en: >-
+    Inventory management web app: products, batches, inbound and outbound
+    movements, reports, and permissions where only administrators perform
+    critical actions.
+contribution:
+  pt:
+    - "Front-end em Next.js do controle de estoque: formulários de entrada e saída e tabela de movimentações."
+    - Gestão de funcionários, login e redefinição de senha no front-end.
+    - Cards de resumo e gráficos de nível de estoque e de movimentações, com Recharts.
+    - "Parte da API em Fastify com Prisma: correções em relatórios, em locais e no CRUD de usuários."
+  en:
+    - "Next.js front end for stock control: inbound and outbound forms and the movements table."
+    - Employee management, sign-in and password reset on the front end.
+    - Summary cards plus stock level and movement charts, with Recharts.
+    - "Part of the Fastify + Prisma API: fixes to reports, locations and user CRUD."
+takeaway:
+  pt: Primeiro contato com React e TypeScript, estudando Clean Architecture e SOLID.
+  en: First contact with React and TypeScript, while studying Clean Architecture and SOLID.
+stack: [TypeScript, Next.js, Fastify, Prisma, Supabase, Recharts]
+links:
+  code: https://github.com/CtrI-Alt-Del/stocker
+image:
+  src: ../../../assets/projects/stocker.png
+  alt:
+    pt: Formulário de lançamento de entrada de estoque no Stocker
+    en: Stocker inbound stock entry form

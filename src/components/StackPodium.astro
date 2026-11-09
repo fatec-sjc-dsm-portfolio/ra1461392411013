@@ -1,0 +1,136 @@
+---
+import "../styles/tech-icons.css";
+import type { CollectionEntry } from "astro:content";
+import type { Locale } from "../i18n/locales";
+
+interface Props {
+  featured: CollectionEntry<"profile">["data"]["featured"];
+  locale: Locale;
+  label: string;
+}
+
+const { featured, locale, label } = Astro.props;
+
+// O conteúdo vem na ordem 1º, 2º, 3º. Na tela o 1º fica no meio, mais alto,
+// como num pódio: 2º · 1º · 3º. A ordem do HTML continua 1-2-3, que é a
+// ordem certa para leitor de tela e para quem navega por teclado; a troca
+// visual é só `order` no CSS.
+---
+
+<section class="podium" aria-labelledby="podium-label">
+  <h3 id="podium-label" class="podium__label text-eyebrow">{label}</h3>
+  <ol class="podium__list">
+    {
+      featured.map((item, index) => (
+        <li class={`podium__item podium__item--${index + 1}`}>
+          <span class="podium__rank text-mono">{index + 1}</span>
+          <span class={`tech-icon podium__icon tech-icon--${item.icon}`} aria-hidden="true" />
+          <span class="podium__name">{item.name[locale]}</span>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .podium {
+    margin-bottom: var(--space-12);
+  }
+
+  .podium__label {
+    color: var(--color-muted);
+    font-weight: 400;
+    margin: 0 0 var(--space-4);
+  }
+
+  .podium__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-3);
+  }
+
+  .podium__item {
+    flex: 1 1 0;
+    min-width: 0;
+    display: grid;
+    justify-items: center;
+    gap: var(--space-2);
+    text-align: center;
+    padding: var(--space-4) var(--space-3);
+    background: var(--color-surface);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-m);
+  }
+
+  /* Os degraus: o 1º é o mais alto, o 3º o mais baixo.
+     `order` põe o 1º no meio sem mexer na ordem do HTML. */
+  .podium__item--1 {
+    order: 2;
+    padding-block: var(--space-8);
+    border-color: var(--color-accent);
+  }
+
+  .podium__item--2 {
+    order: 1;
+    padding-block: var(--space-6);
+  }
+
+  .podium__item--3 {
+    order: 3;
+  }
+
+  .podium__rank {
+    color: var(--color-muted);
+  }
+
+  .podium__item--1 .podium__rank {
+    color: var(--color-accent);
+  }
+
+  .podium__icon {
+    width: 2rem;
+    height: 2rem;
+    margin-top: 0;
+  }
+
+  .podium__item--1 .podium__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--color-accent);
+  }
+
+  .podium__name {
+    font-weight: 600;
+    font-size: var(--text-small);
+  }
+
+  @media (max-width: 640px) {
+    /* Em telas estreitas o degrau não cabe; vira uma lista na ordem 1-2-3. */
+    .podium__list {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: stretch;
+    }
+
+    .podium__item,
+    .podium__item--1,
+    .podium__item--2,
+    .podium__item--3 {
+      order: 0;
+      grid-template-columns: auto auto 1fr;
+      justify-items: start;
+      align-items: center;
+      text-align: left;
+      gap: var(--space-3);
+      padding-block: var(--space-3);
+    }
+
+    .podium__item--1 .podium__icon {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+</style>
